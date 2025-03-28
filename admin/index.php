@@ -26,17 +26,16 @@ if (isset($_GET['action']) && $_GET['action'] == 'get_details' && isset($_GET['i
 
 // Tangani form submission untuk tambah lowongan
 
-
+// Tangani form submission untuk tambah lowongan
 if (isset($_POST['add_lowongan'])) {
-    
     if (!empty($_POST['perusahaan']) && !empty($_POST['title']) && !empty($_POST['deskripsi'])) {
         $perusahaan = $_POST['perusahaan'];
         $title = $_POST['title'];
         $deskripsi = $_POST['deskripsi'];
         $tanggal = date('d-m-Y');  // Mendapatkan waktu saat ini dalam format d-m-Y
 
-        
         try {
+            // Menambahkan data lowongan ke database
             $statement = $db->prepare("INSERT INTO lowongan (perusahaan, title, deskripsi, tanggal) 
                                        VALUES (:perusahaan, :title, :deskripsi, :tanggal)");
             $statement->execute([
@@ -46,7 +45,7 @@ if (isset($_POST['add_lowongan'])) {
                 ':tanggal' => $tanggal
             ]);
 
-           
+            // Redirect ke halaman utama setelah berhasil menambah lowongan
             header("Location: index.php");
             exit();
         } catch (PDOException $e) {
@@ -56,7 +55,6 @@ if (isset($_POST['add_lowongan'])) {
         echo "Semua field harus diisi.";
     }
 }
-
 
 
 
@@ -97,6 +95,7 @@ $user_list = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -113,38 +112,44 @@ $user_list = $statement->fetchAll(PDO::FETCH_ASSOC);
     <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="css/admin.css" rel="stylesheet">
-  
+
 </head>
+
 <body class="fixed-nav sticky-footer" id="page-top">
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-        <a class="navbar-brand" href="index">SISTEM INFORMASI BURSA KERJA KHUSUS <small>(SMK DINAMIKA KOTA TEGAL)</small></a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <a class="navbar-brand" href="index">SISTEM INFORMASI BURSA KERJA KHUSUS <small>(SMK DINAMIKA KOTA
+                TEGAL)</small></a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+            data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+            aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav navbar-sidenav sidebar-menu" id="exampleAccordion">
 
-            <li class="sidebar-profile nav-item" data-toggle="tooltip" data-placement="right" title="Admin">
+                <li class="sidebar-profile nav-item" data-toggle="tooltip" data-placement="right" title="Admin">
                     <div class="profile-main">
                         <p class="image">
                             <img alt="image" src="images/logo_dinamika.png" width="100">
                         </p>
                         <p>
-                            <span class="user" style="font-family: monospace;"><?php echo $role_user; ?>&nbsp;<?php echo $nama_user; ?></span>
+                            <span class="user"
+                                style="font-family: monospace;"><?php echo $role_user; ?>&nbsp;<?php echo $nama_user; ?></span>
                         </p>
                     </div>
                 </li>
 
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard"style="background-color: #0054a8;">
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard"
+                    style="background-color: #0054a8;">
                     <a class="nav-link" href="index">
                         <i class="fa fa-fw fa-dashboard"></i>
                         <span class="nav-link-text">Kelola Lowongan</span>
                     </a>
                 </li>
 
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables" >
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
                     <a class="nav-link" href="tables">
                         <i class="fa fa-fw fa-table"></i>
                         <span class="nav-link-text">Verifikasi Berkas</span>
@@ -207,7 +212,8 @@ $user_list = $statement->fetchAll(PDO::FETCH_ASSOC);
             <div class="card mb-3">
                 <div class="card-header">
                     <i class="fa fa-table"></i> Lowogan Pekerjaan
-                    <button class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#addModal">Tambah Lowogan</button>
+                    <button class="btn btn-primary btn-sm float-right" data-toggle="modal"
+                        data-target="#addModal">Tambah Lowogan</button>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -218,7 +224,8 @@ $user_list = $statement->fetchAll(PDO::FETCH_ASSOC);
                                     <th>Job Title</th>
                                     <th>Tanggal</th>
                                     <th class="th-no-border sorting_asc_disabled sorting_desc_disabled"></th>
-                                    <th class="th-no-border sorting_asc_disabled sorting_desc_disabled" style="text-align:right">Aksi</th>
+                                    <th class="th-no-border sorting_asc_disabled sorting_desc_disabled"
+                                        style="text-align:right">Aksi</th>
                                     <th class="sorting_asc_disabled sorting_desc_disabled"></th>
                                 </tr>
                             </thead>
@@ -229,13 +236,18 @@ $user_list = $statement->fetchAll(PDO::FETCH_ASSOC);
                                     <td><?php echo $key['title']; ?></td>
                                     <td><?php echo $key['tanggal']; ?></td>
                                     <td class="td-no-border">
-                                        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#detailModal" data-id="<?php echo $key['id']; ?>">Detail</button>
+                                        <button class="btn btn-primary btn-sm" data-toggle="modal"
+                                            data-target="#detailModal"
+                                            data-id="<?php echo $key['id']; ?>">Detail</button>
                                     </td>
                                     <td class="td-no-border">
-                                        <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editModal" data-id="<?php echo $key['id']; ?>">Edit</button>
+                                        <button class="btn btn-warning btn-sm" data-toggle="modal"
+                                            data-target="#editModal" data-id="<?php echo $key['id']; ?>">Edit</button>
                                     </td>
                                     <td class="td-no-border">
-                                        <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal" data-id="<?php echo $key['id']; ?>">Hapus</button>
+                                        <button class="btn btn-danger btn-sm" data-toggle="modal"
+                                            data-target="#deleteModal"
+                                            data-id="<?php echo $key['id']; ?>">Hapus</button>
                                     </td>
                                 </tr>
                                 <?php endforeach; ?>
@@ -261,7 +273,8 @@ $user_list = $statement->fetchAll(PDO::FETCH_ASSOC);
         </a>
 
         <!-- Logout Modal-->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -272,7 +285,8 @@ $user_list = $statement->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                     <div class="modal-body">Pilih "Logout" jika anda ingin mengakhiri sesi.</div>
                     <div class="modal-footer">
-                        <button class="btn btn-close card-shadow-2 btn-sm" type="button" data-dismiss="modal">Batal</button>
+                        <button class="btn btn-close card-shadow-2 btn-sm" type="button"
+                            data-dismiss="modal">Batal</button>
                         <a class="btn btn-primary btn-sm card-shadow-2" href="logout">Logout</a>
                     </div>
                 </div>
@@ -280,7 +294,8 @@ $user_list = $statement->fetchAll(PDO::FETCH_ASSOC);
         </div>
 
         <!-- Modal Detail -->
-        <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
+        <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -316,43 +331,47 @@ $user_list = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 
         <!-- Modal Add -->
-<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addModalLabel">Tambah Lowongan</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
+        <!-- Modal Add -->
+        <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addModalLabel">Tambah Lowongan</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <form method="POST" action="index.php">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="add_perusahaan">Nama Perusahaan</label>
+                                <input type="text" class="form-control" id="add_perusahaan" name="perusahaan" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="add_title">Job Title</label>
+                                <input type="text" class="form-control" id="add_title" name="title" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="add_deskripsi">Deskripsi</label>
+                                <textarea class="form-control" id="add_deskripsi" name="deskripsi" rows="4"
+                                    required></textarea>
+                            </div>
+                            <!-- Field Tanggal -->
+                            <input type="hidden" id="add_tanggal" name="tanggal" value="<?php echo date('d-m-Y'); ?>">
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+                            <button class="btn btn-primary" type="submit" name="add_lowongan">Tambah</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <form method="POST" action="index.php">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="add_perusahaan">Nama Perusahaan</label>
-                        <input type="text" class="form-control" id="add_title" name="title" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="add_title">Job Title</label>
-                        <input type="text" class="form-control" id="add_title" name="title" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="add_deskripsi">Deskripsi</label>
-                        <textarea class="form-control" id="add_deskripsi" name="deskripsi" rows="4" required></textarea>
-                    </div>
-                    <!-- Field Tanggal -->
-                    <input type="hidden" id="add_tanggal" name="tanggal">
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-                    <button class="btn btn-primary" type="submit" name="add_lowongan">Tambah</button>
-                </div>
-            </form>
         </div>
-    </div>
-</div>
 
         <!-- Modal Edit -->
-        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -374,7 +393,8 @@ $user_list = $statement->fetchAll(PDO::FETCH_ASSOC);
                             </div>
                             <div class="form-group">
                                 <label for="edit_deskripsi">Deskripsi</label>
-                                <textarea class="form-control" id="edit_deskripsi" name="deskripsi" rows="4" required></textarea>
+                                <textarea class="form-control" id="edit_deskripsi" name="deskripsi" rows="4"
+                                    required></textarea>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -388,7 +408,8 @@ $user_list = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 
         <!-- Modal Delete -->
-        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -426,56 +447,62 @@ $user_list = $statement->fetchAll(PDO::FETCH_ASSOC);
     <script src="js/admin-datatables.js"></script>
 
     <script>
-        $(document).ready(function () {
-    // Mengisi modal detail dengan data dari server
-    $('#detailModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget);
-        var id = button.data('id');
+    $(document).ready(function() {
+        // Mengisi modal detail dengan data dari server
+        $('#detailModal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget);
+            var id = button.data('id');
 
-        $.ajax({
-            url: 'index.php',
-            type: 'GET',
-            dataType: 'json',
-            data: { action: 'get_details', id: id },
-            success: function (data) {
-                if (data) {
-                    $('#detail_perusahaan').val(data.perusahaan);
-                    $('#detail_title').val(data.title);
-                    $('#detail_deskripsi').val(data.deskripsi);
+            $.ajax({
+                url: 'index.php',
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    action: 'get_details',
+                    id: id
+                },
+                success: function(data) {
+                    if (data) {
+                        $('#detail_perusahaan').val(data.perusahaan);
+                        $('#detail_title').val(data.title);
+                        $('#detail_deskripsi').val(data.deskripsi);
+                    }
                 }
-            }
+            });
+        });
+
+        // Mengisi modal edit dengan data dari server
+        $('#editModal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget);
+            var id = button.data('id');
+
+            $.ajax({
+                url: 'index.php',
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    action: 'get_details',
+                    id: id
+                },
+                success: function(data) {
+                    if (data) {
+                        $('#edit_id').val(data.id);
+                        $('#edit_perusahaan').val(data.perusahaan);
+                        $('#edit_title').val(data.title);
+                        $('#edit_deskripsi').val(data.deskripsi);
+                    }
+                }
+            });
+        });
+
+        // Mengisi modal delete dengan id
+        $('#deleteModal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget);
+            var id = button.data('id');
+            $('#delete_id').val(id);
         });
     });
-
-    // Mengisi modal edit dengan data dari server
-    $('#editModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget);
-        var id = button.data('id');
-
-        $.ajax({
-            url: 'index.php',
-            type: 'GET',
-            dataType: 'json',
-            data: { action: 'get_details', id: id },
-            success: function (data) {
-                if (data) {
-                    $('#edit_id').val(data.id);
-                    $('#edit_perusahaan').val(data.perusahaan);
-                    $('#edit_title').val(data.title);
-                    $('#edit_deskripsi').val(data.deskripsi);
-                }
-            }
-        });
-    });
-
-    // Mengisi modal delete dengan id
-    $('#deleteModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget);
-        var id = button.data('id');
-        $('#delete_id').val(id);
-    });
-});
-
     </script>
 </body>
+
 </html>

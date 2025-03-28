@@ -71,13 +71,14 @@ if (isset($_POST['register']) && $_POST['register'] === "Register") {
             $message = "Terjadi kesalahan. Silakan coba lagi.";
         }
     } else {
-        $message = implode( '' , $errors);
+        $message = implode('', $errors);
     }
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -87,80 +88,82 @@ if (isset($_POST['register']) && $_POST['register'] === "Register") {
     <link href="admin/css/admin.css" rel="stylesheet">
 
     <style>
-        body {
-            background-color: #e9ecef;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+    body {
+        background-color: #e9ecef;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
 
-        .card-login {
-            width: 100%;
-            max-width: 500px;
-            border: 1px solid #ced4da;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            background: white;
-            padding: 20px;
-        }
+    .card-login {
+        width: 100%;
+        max-width: 500px;
+        border: 1px solid #ced4da;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        background: white;
+        padding: 20px;
+    }
 
-        .card-header {
-            background: url('images/logo_dinamika.png') no-repeat center;
-            background-size: contain;
-            height: 150px;
-        }
+    .card-header {
+        background: url('images/logo_dinamika.png') no-repeat center;
+        background-size: contain;
+        height: 150px;
+    }
 
-        .card-body {
-            padding: 30px;
-        }
+    .card-body {
+        padding: 30px;
+    }
 
-        .form-group label {
-            font-weight: 500;
-            color: #495057;
-        }
+    .form-group label {
+        font-weight: 500;
+        color: #495057;
+    }
 
-        .form-control {
-            border-radius: 4px;
-            border: 1px solid #adb5bd;
-            padding: 12px;
-            font-size: 16px;
-        }
+    .form-control {
+        border-radius: 4px;
+        border: 1px solid #adb5bd;
+        padding: 12px;
+        font-size: 16px;
+    }
 
-        .btn-primary {
-            background-color: #0056b3;
-            border-color: #004085;
-            font-size: 16px;
-            padding: 10px;
-        }
+    .btn-primary {
+        background-color: #0056b3;
+        border-color: #004085;
+        font-size: 16px;
+        padding: 10px;
+    }
 
-        .btn-primary:hover {
-            background-color: #004085;
-            border-color: #003770;
-        }
+    .btn-primary:hover {
+        background-color: #004085;
+        border-color: #003770;
+    }
 
-        .text-danger {
-            color: #dc3545;
-        }
+    .text-danger {
+        color: #dc3545;
+    }
 
-        .table {
-            width: 100%;
-            text-align: center;
-            border-collapse: collapse;
-        }
+    .table {
+        width: 100%;
+        text-align: center;
+        border-collapse: collapse;
+    }
 
-        .table th, .table td {
-            padding: 12px;
-            border: 1px solid #dee2e6;
-        }
+    .table th,
+    .table td {
+        padding: 12px;
+        border: 1px solid #dee2e6;
+    }
 
-        .table th {
-            background-color: #f8f9fa;
-            font-weight: bold;
-        }
+    .table th {
+        background-color: #f8f9fa;
+        font-weight: bold;
+    }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="card card-login mx-auto">
@@ -174,15 +177,18 @@ if (isset($_POST['register']) && $_POST['register'] === "Register") {
                         </tr>
                         <tr>
                             <td><label for="nama">Nama</label></td>
-                            <td><input class="form-control" id="nama" name="nama" type="text" placeholder="Nama Lengkap" required></td>
+                            <td><input class="form-control" id="nama" name="nama" type="text" placeholder="Nama Lengkap"
+                                    required></td>
                         </tr>
                         <tr>
                             <td><label for="email">Email</label></td>
-                            <td><input class="form-control" id="email" name="email" type="email" placeholder="Email" required></td>
+                            <td><input class="form-control" id="email" name="email" type="email" placeholder="Email"
+                                    required></td>
                         </tr>
                         <tr>
                             <td><label for="username">Username</label></td>
-                            <td><input class="form-control" id="username" name="username" type="text" placeholder="Enter Username" required></td>
+                            <td><input class="form-control" id="username" name="username" type="text"
+                                    placeholder="Enter Username" required></td>
                         </tr>
                         <tr>
                             <td><label for="role">Saya Adalah</label></td>
@@ -196,14 +202,17 @@ if (isset($_POST['register']) && $_POST['register'] === "Register") {
                         </tr>
                         <tr>
                             <td><label for="telpon">Telepon</label></td>
-                            <td><input class="form-control" id="telpon" name="telpon" type="text" placeholder="Nomor Telepon" required></td>
+                            <td><input class="form-control" id="telpon" name="telpon" type="text"
+                                    placeholder="Nomor Telepon" required></td>
                         </tr>
                         <tr>
                             <td><label for="password">Password</label></td>
-                            <td><input class="form-control" id="password" name="password" type="password" placeholder="Password" required></td>
+                            <td><input class="form-control" id="password" name="password" type="password"
+                                    placeholder="Password" required></td>
                         </tr>
                     </table>
-                    <button type="submit" class="btn btn-primary btn-block" name="register" value="Register">Register</button>
+                    <button type="submit" class="btn btn-primary btn-block" name="register"
+                        value="Register">Register</button>
                     <div class="text-center mt-3">
                         Sudah punya akun? <a href="index">Masuk Disini</a>
                     </div>
@@ -212,4 +221,5 @@ if (isset($_POST['register']) && $_POST['register'] === "Register") {
         </div>
     </div>
 </body>
+
 </html>
